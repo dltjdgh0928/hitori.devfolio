@@ -2,11 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Mail, Github, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/hero-bg.jpg";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import ContactForm from "./ContactForm";
 
 export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const titles = ["AI/ML Engineer", "LLM Specialist", "Computer Vision Expert"];
+  const titles = ["AI/ML Engineer", "LLM Specialist", "Generative AI Builder", "Real-time Vision Expert"];
+  const [open, setOpen] = useState(false);
   
   useEffect(() => {
     const title = titles[currentIndex];
@@ -69,15 +72,23 @@ export const Hero = () => {
 
         <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
         익숙한 건 지루하고, 평범한 건 답답합니다.<br />
-        그래서 늘 혁신을 추구하는 AI Creative Engineer, 성호입니다.
+        그래서 늘 혁신을 추구하는 <strong>AI Creative Engineer</strong>, 성호입니다.
         </p>
 
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-          <Button size="lg" className="glow-primary transition-smooth">
-            <Mail className="mr-2 h-5 w-5" />
-            연락하기
-          </Button>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="glow-primary transition-smooth">
+                <Mail className="mr-2 h-5 w-5" />
+                연락하기
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>연락하기</DialogTitle>
+              <ContactForm onSuccess={() => setOpen(false)} />
+            </DialogContent>
+          </Dialog>
           <Button variant="outline" size="lg" className="transition-smooth">
             프로젝트 보기
           </Button>

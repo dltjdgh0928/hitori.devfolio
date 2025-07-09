@@ -68,9 +68,10 @@ export const Hero = () => {
         </div>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-          LLM 파인튜닝부터 Stable Diffusion, Face Swap까지 AI/ML의 전 영역에서 
-          혁신적인 솔루션을 개발하는 전문가입니다.
+        익숙한 건 지루하고, 평범한 건 답답합니다.<br />
+        그래서 늘 혁신을 추구하는 AI Creative Engineer, 성호입니다.
         </p>
+
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
           <Button size="lg" className="glow-primary transition-smooth">
@@ -84,10 +85,20 @@ export const Hero = () => {
 
         {/* Social links */}
         <div className="flex justify-center space-x-6 mb-16">
-          <Button variant="ghost" size="icon" className="hover:glow-primary transition-smooth">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="hover:glow-primary transition-smooth"
+            onClick={() => window.open('https://github.com/dltjdgh0928', '_blank')}
+          >
             <Github className="h-6 w-6" />
           </Button>
-          <Button variant="ghost" size="icon" className="hover:glow-secondary transition-smooth">
+          <Button 
+            variant="ghost"
+            size="icon" 
+            className="hover:glow-secondary transition-smooth"
+            onClick={() => window.open('https://www.linkedin.com/in/%EC%84%B1%ED%98%B8-%EC%9D%B4-2243a3278/', '_blank')}
+          >
             <Linkedin className="h-6 w-6" />
           </Button>
         </div>

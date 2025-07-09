@@ -69,7 +69,7 @@ export const TechStack = () => {
             <span className="gradient-text">기술 전문성</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            AI/ML 분야의 최신 기술들을 활용하여 혁신적인 솔루션을 개발합니다.
+            AI/ML 분야의 최신 기술들을 활용하여 적인 솔루션을 개발합니다.
           </p>
         </div>
 

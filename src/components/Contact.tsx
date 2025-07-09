@@ -85,6 +85,7 @@ export const Contact = () => {
               variant="ghost" 
               size="icon" 
               className="hover:glow-primary transition-smooth"
+              onClick={() => window.open('https://github.com/dltjdgh0928', '_blank')}
             >
               <Github className="h-6 w-6" />
             </Button>

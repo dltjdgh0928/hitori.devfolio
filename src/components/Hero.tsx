@@ -33,6 +33,10 @@ export const Hero = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background with hero image */}
@@ -91,7 +95,7 @@ export const Hero = () => {
               <ContactForm onSuccess={() => setOpen(false)} isOpen={open} />
             </DialogContent>
           </Dialog>
-          <Button variant="outline" size="lg" className="transition-smooth">
+          <Button variant="outline" size="lg" className="transition-smooth" onClick={scrollToProjects}>
             프로젝트 보기
           </Button>
         </div>

@@ -68,7 +68,7 @@ export const About = () => {
               <div>
                 <h4 className="font-semibold mb-2">Computer Vision</h4>
                 <p className="text-muted-foreground text-sm">
-                  Stable Diffusion, Face Swap 기술, 이미지 생성 및 편집 솔루션
+                  Stable Diffusion, Real-time Vision 기술, 이미지 생성 및 편집 솔루션
                 </p>
               </div>
               <div>
@@ -97,7 +97,7 @@ export const About = () => {
               </li>
               <li className="flex items-start">
                 <div className="w-2 h-2 rounded-full bg-accent mt-2 mr-3 flex-shrink-0" />
-                실시간 Face Swap 시스템 아키텍처 설계 및 구현
+                실시간 Real-time Vision 시스템 아키텍처 설계 및 구현
               </li>
             </ul>
           </div>

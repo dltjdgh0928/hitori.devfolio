@@ -18,7 +18,7 @@ export const TechStack = () => {
     },
     {
       icon: User,
-      title: "Face Swap",
+      title: "Real-time Vision",
       color: "accent",
       techs: ["Backend Architecture", "Arcface", "Retinanet", "Xseg for Occlusion", "GFPGAN v1.4", "Codeformer", "Inswapper128", "DFM"]
     },

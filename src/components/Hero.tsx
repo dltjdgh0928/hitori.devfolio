@@ -88,7 +88,7 @@ export const Hero = () => {
             </DialogTrigger>
             <DialogContent>
               <DialogTitle>연락하기</DialogTitle>
-              <ContactForm onSuccess={() => setOpen(false)} />
+              <ContactForm onSuccess={() => setOpen(false)} isOpen={open} />
             </DialogContent>
           </Dialog>
           <Button variant="outline" size="lg" className="transition-smooth">

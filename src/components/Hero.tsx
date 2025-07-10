@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Mail, Github, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
-import heroImage from "@/assets/hero-bg.jpg";
+import heroImage from "@/assets/anya.gif";
 import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import ContactForm from "./ContactForm";
 
@@ -71,8 +71,10 @@ export const Hero = () => {
         </div>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-        익숙한 건 지루하고, 평범한 건 답답합니다.<br />
-        그래서 늘 혁신을 추구하는 <strong>AI Creative Engineer</strong>, 성호입니다.
+        무리무리! 화공생명공학과를 전공한 내가<br/> 인공지능을 잘할 수 있을 리가 없잖아?!<br/>(※ 무리가 아니었다?!)
+        {/* 화공생명공학과를 전공했지만<br/>AI 엔지니어의 길을 거쳐 이세카이로 가버린 어느 개발자의 이야기 */}
+        {/* 익숙한 건 지루하고, 평범한 건 답답합니다.<br /> */}
+        {/* 그래서 늘 혁신을 추구하는 <strong>AI Creative Engineer</strong>, 성호입니다. */}
         </p>
 
 

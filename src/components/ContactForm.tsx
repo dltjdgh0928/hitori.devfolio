@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import React, { useEffect, useState } from "react";
+import emailjs from '@emailjs/browser';
 
 const schema = z.object({
   name: z.string().min(2, "이름을 입력해 주세요."),
-  email: z.string().email("유효한 이메일을 입력해 주세요."),
+  email: z.string().email("회신 받을 이메일을 입력해 주세요."),
   message: z.string().min(5, "메시지를 입력해 주세요.")
 });
 
@@ -19,6 +20,11 @@ type FormValues = z.infer<typeof schema>;
 
 export default function ContactForm({ onSuccess, isOpen }: { onSuccess?: () => void; isOpen?: boolean }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // EmailJS 초기화
+  useEffect(() => {
+    emailjs.init("0lBkq8_hTUq7loPkC");
+  }, []);
   
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -42,22 +48,38 @@ export default function ContactForm({ onSuccess, isOpen }: { onSuccess?: () => v
     setIsSubmitting(true);
     
     try {
-      console.log('문의사항:', data); // 임시로 콘솔에 출력
-      
-      // Supabase에 문의사항 저장 시도
-      const { error } = await (supabase as any)
-        .from('contacts')
-        .insert([
-          {
-            name: data.name,
-            email: data.email,
-            message: data.message
-          }
-        ]);
+      // EmailJS를 사용하여 이메일 전송
+      const templateParams = {
+        from_name: data.name,
+        reply_to: data.email, // 회신 받을 이메일
+        message: data.message,
+        to_name: "성호"
+      };
 
-      if (error) {
-        console.error('Supabase error:', error);
-        // 에러가 있어도 일단 성공 메시지 표시 (테이블이 없을 수 있음)
+      // EmailJS 설정
+      const serviceId = "service_i9rrr82";
+      const templateId = "template_suvj58p";
+      const publicKey = "0lBkq8_hTUq7loPkC";
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      // Supabase에도 백업 저장 시도
+      try {
+        const { error } = await (supabase as any)
+          .from('contacts')
+          .insert([
+            {
+              name: data.name,
+              email: data.email,
+              message: data.message
+            }
+          ]);
+
+        if (error) {
+          console.error('Supabase error:', error);
+        }
+      } catch (supabaseError) {
+        console.error('Supabase backup error:', supabaseError);
       }
 
       toast({
@@ -69,16 +91,13 @@ export default function ContactForm({ onSuccess, isOpen }: { onSuccess?: () => v
       if (onSuccess) onSuccess();
       
     } catch (error) {
-      console.error('Error saving contact:', error);
+      console.error('EmailJS error:', error);
       
-      // 일단 성공 메시지를 표시하고 콘솔에만 에러 기록
       toast({
-        title: "메시지가 전송되었습니다!",
-        description: "현재 임시 저장 중입니다. 개발자가 확인하겠습니다.",
+        title: "전송 실패",
+        description: "이메일 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.",
+        variant: "destructive"
       });
-      
-      form.reset();
-      if (onSuccess) onSuccess();
     } finally {
       setIsSubmitting(false);
     }
@@ -105,9 +124,9 @@ export default function ContactForm({ onSuccess, isOpen }: { onSuccess?: () => v
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>이메일</FormLabel>
+              <FormLabel>회신 받을 이메일</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="이메일 주소" {...field} />
+                <Input type="email" placeholder="회신 받을 이메일 주소" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -2,8 +2,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, MessageCircle, Calendar, Github, Linkedin } from "lucide-react";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import ContactForm from "./ContactForm";
+import { useState } from "react";
 
 export const Contact = () => {
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  
   const contactMethods = [
     {
       icon: Mail,
@@ -17,14 +22,8 @@ export const Contact = () => {
       title: "채팅",
       description: "빠른 질문이나 기술 상담",
       action: "채팅 시작하기", 
-      color: "secondary"
-    },
-    {
-      icon: Calendar,
-      title: "미팅",
-      description: "심도 있는 프로젝트 논의",
-      action: "미팅 예약하기",
-      color: "accent"
+      color: "secondary",
+      link: "https://open.kakao.com/o/sj0FSsIh"
     }
   ];
 
@@ -46,12 +45,12 @@ export const Contact = () => {
             <span className="gradient-text">함께 혁신을</span> 만들어가요
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            AI/ML 프로젝트나 기술 협업에 관심이 있으시다면 언제든 연락주세요. 
-            여러분의 아이디어를 현실로 만들어드리겠습니다.
+            AI/ML 프로젝트나 기술에 관심이 있으시다면 언제든 연락주세요. 
+            재미있는 대화나 프로젝트를 함께 나누고 싶습니다.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-2xl mx-auto">
           {contactMethods.map((method, index) => (
             <Card 
               key={index}
@@ -71,6 +70,13 @@ export const Contact = () => {
                 <Button 
                   variant="outline" 
                   className="w-full transition-smooth group-hover:border-current"
+                  onClick={() => {
+                    if (method.link) {
+                      window.open(method.link, '_blank');
+                    } else if (method.title === "이메일") {
+                      setEmailModalOpen(true);
+                    }
+                  }}
                 >
                   {method.action}
                 </Button>
@@ -93,6 +99,7 @@ export const Contact = () => {
               variant="ghost" 
               size="icon" 
               className="hover:glow-secondary transition-smooth"
+              onClick={() => window.open('https://www.linkedin.com/in/%EC%84%B1%ED%98%B8-%EC%9D%B4-2243a3278/', '_blank')}
             >
               <Linkedin className="h-6 w-6" />
             </Button>
@@ -110,6 +117,14 @@ export const Contact = () => {
           </div>
         </div>
       </div>
+      
+      {/* 이메일 모달 */}
+      <Dialog open={emailModalOpen} onOpenChange={setEmailModalOpen}>
+        <DialogContent>
+          <DialogTitle>이메일 보내기</DialogTitle>
+          <ContactForm onSuccess={() => setEmailModalOpen(false)} isOpen={emailModalOpen} />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

@@ -29,7 +29,7 @@ export const Hero = () => {
     return () => clearInterval(timer);
   }, [currentIndex]);
 
-  const scrollToAbout = () => {
+  const scrollToTechStack = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -122,9 +122,9 @@ export const Hero = () => {
 
         {/* Scroll indicator */}
         <button 
-          onClick={scrollToAbout}
+          onClick={scrollToTechStack}
           className="animate-bounce cursor-pointer hover:text-primary transition-smooth"
-          aria-label="Scroll to about section"
+          aria-label="Scroll to tech stack section"
         >
           <ChevronDown className="h-8 w-8 mx-auto" />
         </button>

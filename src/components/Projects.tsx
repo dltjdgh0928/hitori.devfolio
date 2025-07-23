@@ -7,6 +7,7 @@ import { useState } from "react";
 import aifactoryImage from "@/assets/aifactory_spark_challenge.jpg";
 import knowledgeManagement1 from "@/assets/knowledge_management_1.jpeg";
 import knowledgeManagement2 from "@/assets/knowledge_management_2.jpeg";
+import loraEvaluatorImage from "@/assets/lora_evaluater.png";
 
 export const Projects = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,6 +25,7 @@ export const Projects = () => {
       description: "생성형 인공지능 캐릭터의 얼굴/몸체 등 신체 비율 분석을 통해 LoRA 모델 학습 후 원본과의 유사도를 분석하는 평가 도구입니다. 랜드마크 기반 메트릭을 사용하여 최적의 LoRA 스텝을 찾아줍니다.",
       longDescription: "Facial detection과 body detection을 결합하여 캐릭터가 모델 학습 후 원본과 얼마나 유사한지 분석하는 강력한 도구입니다. 어깨 너비, 허리 너비, 눈 거리, 코-입 거리 등 다양한 비율을 측정하여 수학적으로 최적의 LoRA 스텝을 결정합니다.",
       tech: ["Python", "PyTorch", "MMDetection", "MMPose", "MediaPipe", "CUDA"],
+      image: loraEvaluatorImage,
       github: "https://github.com/dltjdgh0928/lora-evaluator",
       category: "AI/ML",
       icon: <Brain className="h-6 w-6" />,
@@ -43,6 +45,8 @@ export const Projects = () => {
       image: aifactoryImage,
       category: "Competition",
       icon: <Award className="h-6 w-6" />,
+      detailLink: "https://aifactory.space/task/2317/overview",
+      detailText: "대회 개요",
       features: [
         "다변량 시계열 데이터 전처리 파이프라인",
         "지리공간 좌표 기반 특성 엔지니어링",
@@ -60,6 +64,8 @@ export const Projects = () => {
       image: knowledgeManagement1,
       category: "Research",
       icon: <Cog className="h-6 w-6" />,
+      detailLink: "https://www.notion.so/KNOWLEDGE-MANAGEMENT-3cc052b1f863447bb97f43af8086bf71?source=copy_link",
+      detailText: "PPT 보기",
       features: [
         "GS 칼텍스와의 산학협력 프로젝트",
         "CCUS 기술 현황 및 전망 분석",
@@ -84,13 +90,13 @@ export const Projects = () => {
             프로젝트
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            AI/ML 기술과 창의적 아이디어가 만나 실제 문제를 해결하는 프로젝트들입니다
+            AI/ML 프로젝트와 화공생명공학 전공 프로젝트들입니다
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {projects.map((project) => (
-            <Card key={project.id} className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur">
+            <Card key={project.id} className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur h-full flex flex-col">
               <CardHeader>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -124,7 +130,7 @@ export const Projects = () => {
                 </CardDescription>
               </CardHeader>
 
-              <CardContent>
+              <CardContent className="flex-grow">
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold mb-2 text-sm">주요 기능:</h4>
@@ -160,31 +166,30 @@ export const Projects = () => {
                     GitHub
                   </Button>
                 )}
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="flex-1"
-                  onClick={() => {
-                    // 프로젝트 상세 정보 모달이나 페이지로 이동
-                    console.log(`View details for ${project.title}`);
-                  }}
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  상세보기
-                </Button>
+                {project.detailLink && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex-1"
+                    onClick={() => window.open(project.detailLink, '_blank')}
+                  >
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    {project.detailText}
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}
         </div>
 
-        {/* Upcoming Projects */}
+        {/* Additional Projects */}
         <div className="text-center">
           <h3 className="text-2xl font-bold mb-8 text-muted-foreground">
-            진행 예정 프로젝트
+            기타 진행 프로젝트
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {upcomingProjects.map((project, index) => (
-              <Card key={index} className="bg-muted/30 border-dashed border-2 border-muted-foreground/30">
+              <Card key={index} className="bg-card hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-6 text-center">
                   <h4 className="font-semibold mb-2">{project.name}</h4>
                   <p className="text-sm text-muted-foreground">{project.tech}</p>

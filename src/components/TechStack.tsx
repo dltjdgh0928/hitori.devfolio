@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Image, User, Zap, Server, Code, Award, Target, Cpu } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 // 이미지 import
 import bocchiImage from "@/assets/bocchi_1.png";
@@ -8,6 +9,100 @@ import tensorrtImage from "@/assets/Tensorrt.png";
 import onnxImage from "@/assets/onnx.png";
 import comfyuiImage from "@/assets/comfyui.svg";
 import cudaImage from "@/assets/cuda_logo.png";
+
+// 홀로 카드 컴포넌트
+const HoloCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const styleRef = useRef<HTMLStyleElement | null>(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
+      const rect = card.getBoundingClientRect();
+      let x: number, y: number;
+
+      if (e instanceof MouseEvent) {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+      } else {
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+      }
+
+      const width = rect.width;
+      const height = rect.height;
+      
+      // 마우스 위치를 퍼센트로 변환
+      const px = Math.abs(Math.floor(100 / width * x) - 100);
+      const py = Math.abs(Math.floor(100 / height * y) - 100);
+      const pa = (50 - px) + (50 - py);
+
+      // 그라디언트 위치 계산
+      const lp = (50 + (px - 50) / 1.5);
+      const tp = (50 + (py - 50) / 1.5);
+      const px_spark = (50 + (px - 50) / 7);
+      const py_spark = (50 + (py - 50) / 7);
+      const p_opc = 20 + (Math.abs(pa) * 1.5);
+
+      // 3D 변환 계산
+      const ty = ((tp - 50) / 2) * -1;
+      const tx = ((lp - 50) / 1.5) * 0.5;
+
+      // CSS 스타일 적용
+      const grad_pos = `background-position: ${lp}% ${tp}%;`;
+      const sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`;
+      const opc = `opacity: ${p_opc / 100};`;
+      const tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`;
+
+      // 스타일 태그 생성 또는 업데이트
+      if (!styleRef.current) {
+        styleRef.current = document.createElement('style');
+        document.head.appendChild(styleRef.current);
+      }
+
+      const style = `
+        .holo-card.interactive:hover:before { ${grad_pos} }
+        .holo-card.interactive:hover:after { ${sprk_pos} ${opc} }
+      `;
+      styleRef.current.textContent = style;
+
+      // 카드에 3D 변환 적용
+      card.style.transform = tf;
+      card.classList.add('active');
+    };
+
+    const handleMouseLeave = () => {
+      card.style.transform = '';
+      card.classList.remove('active');
+      if (styleRef.current) {
+        styleRef.current.textContent = '';
+      }
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('touchmove', handleMouseMove, { passive: false });
+    card.addEventListener('mouseleave', handleMouseLeave);
+    card.addEventListener('touchend', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('touchmove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+      card.removeEventListener('touchend', handleMouseLeave);
+      if (styleRef.current) {
+        document.head.removeChild(styleRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div ref={cardRef} className={`holo-card interactive ${className}`}>
+      {children}
+    </div>
+  );
+};
 
 export const TechStack = () => {
   const techCategories = [
@@ -135,28 +230,28 @@ export const TechStack = () => {
           </h2>
         </div>
 
-        {/* Personal Introduction with Image */}
-        <div className="mb-16">
-          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
-            <div className="flex-shrink-0">
-              <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
-                                 <img 
-                   src={bocchiImage} 
-                   alt="AI/ML Research" 
+                 {/* Personal Introduction with Image */}
+         <div className="mb-16">
+           <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
+             <div className="flex-shrink-0">
+               <HoloCard className="bocchi-card w-83 h-80">
+                 <img
+                   src={bocchiImage}
+                   alt="AI/ML Research"
                    className="w-full h-full object-cover"
                  />
-              </div>
-            </div>
-            <div className="flex-1 text-center">
-              <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
-                "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
-              </p>
-              <p className="text-sm text-yellow-500 mt-2 font-jua">
-                "성호야 그게 무슨 소리니?"
-              </p>
-            </div>
-          </div>
-        </div>
+               </HoloCard>
+             </div>
+             <div className="flex-1 text-center">
+               <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
+                 "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
+               </p>
+               <p className="text-sm text-yellow-500 mt-2 font-jua">
+                 "성호야 그게 무슨 소리니?"
+               </p>
+             </div>
+           </div>
+         </div>
 
         {/* Tech Categories */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">

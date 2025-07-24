@@ -50,82 +50,85 @@ export const Contact = () => {
             </h2>
           </div>
           
-          {/* Content with GIF and Text */}
-          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-4xl mx-auto">
-            {/* Luka GIF - Left Side */}
-            <div className="flex-shrink-0">
-              <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20 bg-gradient-to-br from-pink-100 to-purple-100">
-                <img 
-                  src={lukaGif} 
-                  alt="Luka" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-            
-                         {/* Text Content - Right Side */}
-             <div className="flex-1 text-center lg:text-left">
-               <p className="text-lg text-muted-foreground leading-relaxed font-jua">
-                 재미있는 대화나 프로젝트를 함께 나누고 싶어요.<br/><br/><span className="text-red-500">왜 혼자 재밌는거 하세요?</span>
+                     {/* Content with GIF and Text */}
+           <div className="flex flex-col lg:flex-row items-center gap-8 max-w-4xl mx-auto">
+             {/* Luka GIF - Left Side */}
+             <div className="flex-shrink-0 animate-float">
+               <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20 bg-gradient-to-br from-pink-100 to-purple-100 hover:shadow-2xl hover:scale-105 transition-all duration-500 hover:border-primary/40">
+                 <img 
+                   src={lukaGif} 
+                   alt="Luka" 
+                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                 />
+               </div>
+             </div>
+             
+             {/* Text Content - Right Side */}
+             <div className="flex-1 text-center lg:text-left animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+               <p className="text-lg text-muted-foreground leading-relaxed font-jua hover:text-foreground transition-colors duration-300">
+                 재미있는 대화나 프로젝트를 함께 나누고 싶어요.<br/><br/>
+                 <span className="text-red-500 hover:text-red-600 transition-colors duration-300 cursor-pointer hover:scale-105 inline-block transform hover:rotate-1">
+                   왜 혼자 재밌는거 하세요?
+                 </span>
                </p>
              </div>
-          </div>
+           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-2xl mx-auto">
-          {contactMethods.map((method, index) => (
-            <Card 
-              key={index}
-              className={`card-gradient border-0 transition-smooth group cursor-pointer ${getColorClass(method.color)}`}
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <CardContent className="p-8 text-center">
-                <div className="mb-6 flex justify-center">
-                  <div className={`p-4 rounded-full bg-${method.color}/10 group-hover:bg-${method.color}/20 transition-smooth`}>
-                    <method.icon className={`h-8 w-8 text-${method.color}`} />
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{method.title}</h3>
-                <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-                  {method.description}
-                </p>
-                <Button 
-                  variant="outline" 
-                  className="w-full transition-smooth group-hover:border-current"
-                  onClick={() => {
-                    if (method.link) {
-                      window.open(method.link, '_blank');
-                    } else if (method.title === "이메일") {
-                      setEmailModalOpen(true);
-                    }
-                  }}
-                >
-                  {method.action}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                 <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-2xl mx-auto">
+           {contactMethods.map((method, index) => (
+             <Card 
+               key={index}
+               className={`card-gradient border-0 transition-all duration-500 group cursor-pointer ${getColorClass(method.color)} hover:scale-105 hover:shadow-2xl animate-fade-in-up`}
+               style={{ animationDelay: `${index * 0.2}s` }}
+             >
+               <CardContent className="p-8 text-center">
+                 <div className="mb-6 flex justify-center">
+                   <div className={`p-4 rounded-full bg-${method.color}/10 group-hover:bg-${method.color}/20 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                     <method.icon className={`h-8 w-8 text-${method.color} group-hover:animate-pulse`} />
+                   </div>
+                 </div>
+                 <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">{method.title}</h3>
+                 <p className="text-muted-foreground mb-6 text-sm leading-relaxed group-hover:text-foreground transition-colors duration-300">
+                   {method.description}
+                 </p>
+                 <Button 
+                   variant="outline" 
+                   className="w-full transition-all duration-300 group-hover:border-current group-hover:scale-105 group-hover:shadow-lg hover:bg-primary hover:text-primary-foreground"
+                   onClick={() => {
+                     if (method.link) {
+                       window.open(method.link, '_blank');
+                     } else if (method.title === "이메일") {
+                       setEmailModalOpen(true);
+                     }
+                   }}
+                 >
+                   {method.action}
+                 </Button>
+               </CardContent>
+             </Card>
+           ))}
+         </div>
 
-        <div className="text-center">
-          <div className="flex justify-center space-x-6 mb-8">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hover:glow-primary transition-smooth"
-              onClick={() => window.open('https://github.com/dltjdgh0928', '_blank')}
-            >
-              <Github className="h-6 w-6" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="hover:glow-secondary transition-smooth"
-              onClick={() => window.open('https://www.linkedin.com/in/%EC%84%B1%ED%98%B8-%EC%9D%B4-2243a3278/', '_blank')}
-            >
-              <Linkedin className="h-6 w-6" />
-            </Button>
-          </div>
+                 <div className="text-center">
+           <div className="flex justify-center space-x-6 mb-8">
+             <Button 
+               variant="ghost" 
+               size="icon" 
+               className="hover:glow-primary transition-smooth"
+               onClick={() => window.open('https://github.com/dltjdgh0928', '_blank')}
+             >
+               <Github className="h-6 w-6" />
+             </Button>
+             <Button 
+               variant="ghost" 
+               size="icon" 
+               className="hover:glow-secondary transition-smooth"
+               onClick={() => window.open('https://www.linkedin.com/in/%EC%84%B1%ED%98%B8-%EC%9D%B4-2243a3278/', '_blank')}
+             >
+               <Linkedin className="h-6 w-6" />
+             </Button>
+           </div>
           
           {/* <div className="hero-gradient rounded-2xl p-8 border border-border/50">
             <h3 className="text-2xl font-bold mb-4">지금 바로 시작하세요</h3>

@@ -232,4 +232,48 @@ Inspired by modern tech companies with AI/ML focus
   .transition-bounce {
     transition: var(--transition-bounce);
   }
+
+  .font-comic {
+    font-family: 'Comic Neue', cursive;
+  }
+  
+  .font-fredoka {
+    font-family: 'Fredoka One', cursive;
+  }
+  
+  .font-bubblegum {
+    font-family: 'Bubblegum Sans', cursive;
+  }
+  
+  .font-chewy {
+    font-family: 'Chewy', cursive;
+  }
+  
+  .font-marker {
+    font-family: 'Permanent Marker', cursive;
+  }
+
+  .font-noto-kr {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  .font-single-day {
+    font-family: 'Single Day', cursive;
+  }
+  
+  .font-gamja-flower {
+    font-family: 'Gamja Flower', cursive;
+  }
+  
+  .font-hi-melody {
+    font-family: 'Hi Melody', cursive;
+  }
+  
+  .font-yeon-sung {
+    font-family: 'Yeon Sung', cursive;
+  }
+  
+  .font-jua {
+    font-family: 'Jua', sans-serif;
+  }
 }

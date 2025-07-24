@@ -13,15 +13,15 @@ export const Contact = () => {
     {
       icon: Mail,
       title: "이메일",
-      description: "프로젝트 문의 및 협업 제안",
+      description: "기술 문의",
       action: "이메일 보내기",
       color: "primary"
     },
     {
       icon: MessageCircle,
       title: "채팅",
-      description: "빠른 질문이나 기술 상담",
-      action: "채팅 시작하기", 
+      description: "Buy me a coffee",
+      action: "카카오톡 채팅", 
       color: "secondary",
       link: "https://open.kakao.com/o/sj0FSsIh"
     }
@@ -42,7 +42,7 @@ export const Contact = () => {
         <div className="text-center mb-16 animate-fade-in-up">
           <Badge variant="outline" className="mb-4">Contact</Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="gradient-text">함께 혁신을</span> 만들어가요
+            <span className="gradient-text">커피 한잔만</span> 사주세요
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             AI/ML 프로젝트나 기술에 관심이 있으시다면 언제든 연락주세요. 
@@ -105,7 +105,7 @@ export const Contact = () => {
             </Button>
           </div>
           
-          <div className="hero-gradient rounded-2xl p-8 border border-border/50">
+          {/* <div className="hero-gradient rounded-2xl p-8 border border-border/50">
             <h3 className="text-2xl font-bold mb-4">지금 바로 시작하세요</h3>
             <p className="text-muted-foreground mb-6">
               AI/ML 프로젝트의 첫 걸음을 함께 시작해보세요.
@@ -114,7 +114,7 @@ export const Contact = () => {
               <Mail className="mr-2 h-5 w-5" />
               프로젝트 시작하기
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       

@@ -126,10 +126,29 @@ export const TechStack = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">AI/ML 전문 기술</span>과 실무 경험
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            최신 AI/ML 기술을 활용하여 실제 비즈니스 문제를 해결하는 엔지니어입니다. 
-            대규모 모델 훈련부터 프로덕션 배포까지, 전 과정에 걸친 깊이 있는 경험을 보유하고 있습니다.
-          </p>
+        </div>
+
+        {/* Personal Introduction with Image */}
+        <div className="mb-16">
+          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
+            <div className="flex-shrink-0">
+              <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
+                <img 
+                  src="/src/assets/bocchi_1.png" 
+                  alt="AI/ML Research" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="flex-1 text-center">
+              <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
+                "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
+              </p>
+              <p className="text-sm text-yellow-500 mt-2 font-jua">
+                "성호야 그게 무슨 소리니?"
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tech Categories */}
@@ -327,7 +346,7 @@ export const TechStack = () => {
                 {/* CUDA */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <span className="text-green-600 font-bold text-xs">CUDA</span>
+                    <img src="/src/assets/cuda_logo.png" alt="CUDA" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">CUDA</span>
                 </div>
@@ -440,7 +459,7 @@ export const TechStack = () => {
                 {/* CUDA */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <span className="text-green-600 font-bold text-xs">CUDA</span>
+                    <img src="/src/assets/cuda_logo.png" alt="CUDA" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">CUDA</span>
                 </div>

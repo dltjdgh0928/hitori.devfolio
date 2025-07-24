@@ -2,6 +2,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Image, User, Zap, Server, Code, Award, Target, Cpu } from "lucide-react";
 
+// 이미지 import
+import bocchiImage from "@/assets/bocchi_1.png";
+import tensorrtImage from "@/assets/Tensorrt.png";
+import onnxImage from "@/assets/onnx.png";
+import comfyuiImage from "@/assets/comfyui.svg";
+import cudaImage from "@/assets/cuda_logo.png";
+
 export const TechStack = () => {
   const techCategories = [
     {
@@ -133,11 +140,11 @@ export const TechStack = () => {
           <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
             <div className="flex-shrink-0">
               <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
-                <img 
-                  src="/src/assets/bocchi_1.png" 
-                  alt="AI/ML Research" 
-                  className="w-full h-full object-cover"
-                />
+                                 <img 
+                   src={bocchiImage} 
+                   alt="AI/ML Research" 
+                   className="w-full h-full object-cover"
+                 />
               </div>
             </div>
             <div className="flex-1 text-center">
@@ -314,7 +321,7 @@ export const TechStack = () => {
                 {/* TensorRT */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-1 shadow-lg">
-                    <img src="/src/assets/Tensorrt.png" alt="TensorRT" className="w-full h-full object-contain" />
+                    <img src={tensorrtImage} alt="TensorRT" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">TensorRT</span>
                 </div>
@@ -322,7 +329,7 @@ export const TechStack = () => {
                 {/* ONNX */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="/src/assets/onnx.png" alt="ONNX" className="w-full h-full object-contain" />
+                    <img src={onnxImage} alt="ONNX" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">ONNX</span>
                 </div>
@@ -338,7 +345,7 @@ export const TechStack = () => {
                 {/* ComfyUI */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="/src/assets/comfyui.svg" alt="ComfyUI" className="w-full h-full" />
+                    <img src={comfyuiImage} alt="ComfyUI" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">ComfyUI</span>
                 </div>
@@ -346,7 +353,7 @@ export const TechStack = () => {
                 {/* CUDA */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <img src="/src/assets/cuda_logo.png" alt="CUDA" className="w-full h-full" />
+                    <img src={cudaImage} alt="CUDA" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">CUDA</span>
                 </div>
@@ -427,7 +434,7 @@ export const TechStack = () => {
                 {/* TensorRT */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-1 shadow-lg">
-                    <img src="/src/assets/Tensorrt.png" alt="TensorRT" className="w-full h-full object-contain" />
+                    <img src={tensorrtImage} alt="TensorRT" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">TensorRT</span>
                 </div>
@@ -435,7 +442,7 @@ export const TechStack = () => {
                 {/* ONNX */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="/src/assets/onnx.png" alt="ONNX" className="w-full h-full object-contain" />
+                    <img src={onnxImage} alt="ONNX" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">ONNX</span>
                 </div>
@@ -451,7 +458,7 @@ export const TechStack = () => {
                 {/* ComfyUI */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="/src/assets/comfyui.svg" alt="ComfyUI" className="w-full h-full" />
+                    <img src={comfyuiImage} alt="ComfyUI" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">ComfyUI</span>
                 </div>
@@ -459,7 +466,7 @@ export const TechStack = () => {
                 {/* CUDA */}
                 <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
                   <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <img src="/src/assets/cuda_logo.png" alt="CUDA" className="w-full h-full" />
+                    <img src={cudaImage} alt="CUDA" className="w-full h-full" />
                   </div>
                   <span className="text-xs text-muted-foreground text-center">CUDA</span>
                 </div>

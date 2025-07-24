@@ -6,6 +6,9 @@ import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "@/components/
 import ContactForm from "./ContactForm";
 import { useState } from "react";
 
+// 이미지 import
+import lukaGif from "@/assets/luka.gif";
+
 export const Contact = () => {
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   
@@ -39,15 +42,34 @@ export const Contact = () => {
   return (
     <section className="py-24 px-6 bg-background">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <Badge variant="outline" className="mb-4">Contact</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="gradient-text">커피 한잔만</span> 사주세요
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            AI/ML 프로젝트나 기술에 관심이 있으시다면 언제든 연락주세요. 
-            재미있는 대화나 프로젝트를 함께 나누고 싶습니다.
-          </p>
+        <div className="mb-16 animate-fade-in-up">
+          <div className="text-center">
+            <Badge variant="outline" className="mb-4">Contact</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="gradient-text">커피 한잔만</span> 사주세요
+            </h2>
+          </div>
+          
+          {/* Content with GIF and Text */}
+          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-4xl mx-auto">
+            {/* Luka GIF - Left Side */}
+            <div className="flex-shrink-0">
+              <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-primary/20 bg-gradient-to-br from-pink-100 to-purple-100">
+                <img 
+                  src={lukaGif} 
+                  alt="Luka" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            
+                         {/* Text Content - Right Side */}
+             <div className="flex-1 text-center lg:text-left">
+               <p className="text-lg text-muted-foreground leading-relaxed font-jua">
+                 재미있는 대화나 프로젝트를 함께 나누고 싶어요.<br/><br/><span className="text-red-500">왜 혼자 재밌는거 하세요?</span>
+               </p>
+             </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-2xl mx-auto">

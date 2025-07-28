@@ -147,7 +147,7 @@ export const Projects = () => {
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-64 object-contain bg-gray-100 group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 hover:opacity-100">
                       <div className="text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-lg">
@@ -161,7 +161,7 @@ export const Projects = () => {
                     <img 
                       src={openkoLlmSponsorImage} 
                       alt="Open Ko-LLM 스폰서"
-                      className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-32 object-contain bg-gray-100 group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 hover:opacity-100">
                       <div className="text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-lg">

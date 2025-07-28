@@ -1,73 +1,68 @@
-# Welcome to your Lovable project
+# AI/ML Engineer Portfolio
 
-## Project info
+개발자 포트폴리오 웹사이트입니다. React, TypeScript, Tailwind CSS를 사용하여 구축되었습니다.
 
-**URL**: https://lovable.dev/projects/155570d3-81e5-4661-a12a-ed0727ca9017
+## 🚀 기술 스택
 
-## How can I edit this code?
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Radix UI
+- **Email**: EmailJS
+- **Animation**: CSS Animations, Intersection Observer API
 
-There are several ways of editing your application.
+## 📁 프로젝트 구조
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/155570d3-81e5-4661-a12a-ed0727ca9017) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/          # React 컴포넌트
+│   ├── ui/             # UI 컴포넌트 (shadcn/ui)
+│   ├── Hero.tsx        # 메인 히어로 섹션
+│   ├── Projects.tsx    # 프로젝트 섹션
+│   ├── TechStack.tsx   # 기술 스택 섹션
+│   ├── Contact.tsx     # 연락처 섹션
+│   └── ContactForm.tsx # 연락처 폼
+├── hooks/              # 커스텀 훅
+│   └── use-intersection-observer.tsx
+├── assets/             # 이미지 및 리소스
+└── pages/              # 페이지 컴포넌트
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 주요 기능
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **반응형 디자인**: 모바일부터 데스크톱까지 완벽 지원
+- **스크롤 애니메이션**: Intersection Observer API를 활용한 부드러운 애니메이션
+- **이메일 연락**: EmailJS를 통한 직접 이메일 전송
+- **다크/라이트 모드**: 테마 전환 지원
+- **접근성**: ARIA 라벨 및 키보드 네비게이션 지원
 
-**Use GitHub Codespaces**
+## 🛠️ 개발 환경 설정
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+# 의존성 설치
+npm install
 
-## What technologies are used for this project?
+# 개발 서버 실행
+npm run dev
 
-This project is built with:
+# 빌드
+npm run build
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# 빌드 미리보기
+npm run preview
+```
 
-## How can I deploy this project?
+## 📧 연락처
 
-Simply open [Lovable](https://lovable.dev/projects/155570d3-81e5-4661-a12a-ed0727ca9017) and click on Share -> Publish.
+- **GitHub**: [dltjdgh0928](https://github.com/dltjdgh0928)
+- **LinkedIn**: [이성호](https://www.linkedin.com/in/%EC%84%B1%ED%98%B8-%EC%9D%B4-2243a3278/)
+- **카카오톡**: [오픈채팅](https://open.kakao.com/o/sj0FSsIh)
 
-## Can I connect a custom domain to my Lovable project?
+## 🎯 주요 프로젝트
 
-Yes, you can!
+1. **Open Ko-LLM 리더보드** - 2023년 11월 우승
+2. **LoRA Evaluator** - 생성형 AI 모델 평가 도구
+3. **시계열 예측 모델링** - PM2.5 농도 예측 (AI Factory Spark Challenge 우승)
+4. **CCUS 기술 연구** - GS 칼텍스 협업
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📄 라이선스
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT License

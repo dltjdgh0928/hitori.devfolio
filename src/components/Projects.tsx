@@ -2,12 +2,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Github, ExternalLink, Award, Brain, Cog, X } from "lucide-react";
+import { Github, ExternalLink, Award, Brain, Cog, X, Trophy } from "lucide-react";
 import { useState } from "react";
 import aifactoryImage from "@/assets/aifactory_spark_challenge.jpg";
 import knowledgeManagement1 from "@/assets/knowledge_management_1.jpeg";
 import knowledgeManagement2 from "@/assets/knowledge_management_2.jpeg";
 import loraEvaluatorImage from "@/assets/lora_evaluater.png";
+import openkoLlmImage from "@/assets/openko-llm.jpg";
+import openkoLlmSponsorImage from "@/assets/openko-llm-sponsor.jpg";
 
 export const Projects = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,6 +23,23 @@ export const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "Open Ko-LLM 리더보드 - 2023년 11월 우승 🏆",
+      description: "한국어 초거대 언어 모델(LLM) 성능 평가 및 순위 경쟁 리더보드에서 우승을 차지한 프로젝트입니다. NIA와 업스테이지가 공동 주최하는 대회에서 이달의 LLM을 시상받았습니다.",
+      longDescription: "Open Ko-LLM 리더보드는 한국어 LLM의 성능을 평가하고 순위를 경쟁하는 대회로, 추론능력, 상식능력, 언어이해력, 환각방지능력, 한국어 일반상식능력 등 5가지 영역에서 평가합니다. Open-Orca 데이터셋을 번역하고 정제하여 DPO(Direct Preference Optimization) 방식으로 모델을 훈련했습니다.",
+      tech: ["PyTorch", "Transformers", "PEFT", "DPO", "RLHF", "Korean LLM", "Fine-tuning"],
+      image: openkoLlmImage,
+      category: "Competition",
+      icon: <Trophy className="h-6 w-6" />,
+      features: [
+        "한국어 LLM 성능 평가 및 순위 경쟁",
+        "Open-Orca 데이터셋 번역 및 정제",
+        "DPO 방식의 효율적인 모델 훈련",
+        "5가지 평가 영역 종합 분석",
+        "NIA-업스테이지 공동 주최 대회 우승"
+      ]
+    },
+    {
+      id: 2,
       title: "LoRA Evaluator",
       description: "생성형 인공지능 캐릭터의 얼굴/몸체 등 신체 비율 분석을 통해 LoRA 모델 학습 후 원본과의 유사도를 분석하는 평가 도구입니다. 랜드마크 기반 메트릭을 사용하여 최적의 LoRA 스텝을 찾아줍니다.",
       longDescription: "Facial detection과 body detection을 결합하여 캐릭터가 모델 학습 후 원본과 얼마나 유사한지 분석하는 강력한 도구입니다. 어깨 너비, 허리 너비, 눈 거리, 코-입 거리 등 다양한 비율을 측정하여 수학적으로 최적의 LoRA 스텝을 결정합니다.",
@@ -37,7 +56,7 @@ export const Projects = () => {
       ]
     },
     {
-      id: 2,
+      id: 3,
       title: "시계열 예측 모델링 - PM2.5 농도 예측 🏆",
       description: "다변량 시계열 데이터를 활용한 대기오염 예측 시스템입니다. AI Factory Spark Challenge에서 우승을 차지한 프로젝트로, Python 기반의 머신러닝 파이프라인 구축부터 지리공간 데이터 처리, 시계열 모델링까지 전 과정을 구현했습니다.",
       longDescription: "복합 센서 데이터(PM2.5, 기상 데이터)를 융합하여 시계열 예측 모델을 개발했습니다. 우수한 성적으로 대회 우승을 달성하며, 데이터 전처리, 특성 엔지니어링, 모델 최적화 등 ML 파이프라인 전체를 설계하고 구현한 실력을 입증한 프로젝트입니다.",
@@ -56,7 +75,7 @@ export const Projects = () => {
       ]
     },
     {
-      id: 3,
+      id: 4,
       title: "CCUS 기술 연구 - GS 칼텍스 협업",
       description: "학부 지식경영 수업에서 GS 칼텍스와 협업하여 CCUS(탄소 포집, 활용, 저장) 기술에 대한 연구 프로젝트를 수행했습니다. 화공생명공학 전공 지식을 바탕으로 탄소중립 기술을 분석하고 발표했습니다.",
       longDescription: "실제 석유화학 기업인 GS 칼텍스와의 산학협력 프로젝트로, CCUS 기술의 현황과 전망을 화공생명공학 관점에서 분석했습니다. 공정 설계, 경제성 분석, 환경 영향 평가 등 다각도로 접근한 연구 프로젝트입니다.",
@@ -64,7 +83,7 @@ export const Projects = () => {
       image: knowledgeManagement1,
       category: "Research",
       icon: <Cog className="h-6 w-6" />,
-      detailLink: "https://www.notion.so/KNOWLEDGE-MANAGEMENT-3cc052b1f863447bb97f43af8086bf71?source=copy_link",
+      detailLink: "https://www.notion.so/KNOWLEDGE-MANAGEMENT-23c683bdd139806695c2d9733a0af5e4?source=copy_link",
       detailText: "PPT 보기",
       features: [
         "GS 칼텍스와의 산학협력 프로젝트",
@@ -78,7 +97,6 @@ export const Projects = () => {
 
   const upcomingProjects = [
     { name: "ComfyUI Workflow Automation", tech: "ComfyUI, Python, Workflow Design" },
-    { name: "LLM Fine-tuning Platform", tech: "PyTorch, Transformers, PEFT" },
     { name: "Real-time Face Swap System", tech: "OpenCV, Deep Learning, Real-time Processing" }
   ];
 
@@ -121,6 +139,20 @@ export const Projects = () => {
                     </div>
                   </div>
                 )}
+                {project.id === 1 && (
+                  <div className="mb-4 rounded-lg overflow-hidden cursor-pointer relative" onClick={() => openImageModal(openkoLlmSponsorImage, "Open Ko-LLM 스폰서", "NIA, 업스테이지, KT Cloud, 고려대학교 nlp & ai Lab, Flitto가 후원하는 대회입니다.")}>
+                    <img 
+                      src={openkoLlmSponsorImage} 
+                      alt="Open Ko-LLM 스폰서"
+                      className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 hover:opacity-100">
+                      <div className="text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-lg">
+                        스폰서 정보
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
                   {project.title}
@@ -133,7 +165,7 @@ export const Projects = () => {
               <CardContent className="flex-grow">
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold mb-2 text-sm">주요 기능:</h4>
+                    <h4 className="font-semibold mb-2 text-sm">주요 성과:</h4>
                     <ul className="text-sm text-muted-foreground space-y-1">
                       {project.features.map((feature, index) => (
                         <li key={index} className="flex items-start">

@@ -1,110 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Image, User, Zap, Server, Code, Award, Target, Cpu } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-
-// 이미지 import
-import bocchiImage from "@/assets/bocchi_1.png";
-import tensorrtImage from "@/assets/Tensorrt.png";
-import onnxImage from "@/assets/onnx.png";
-import comfyuiImage from "@/assets/comfyui.svg";
-import cudaImage from "@/assets/cuda_logo.png";
-
-// 홀로 카드 컴포넌트
-const HoloCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const handleMouseMove = (e: MouseEvent | TouchEvent) => {
-      const rect = card.getBoundingClientRect();
-      let x: number, y: number;
-
-      if (e instanceof MouseEvent) {
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
-      } else {
-        x = e.touches[0].clientX - rect.left;
-        y = e.touches[0].clientY - rect.top;
-      }
-
-      const width = rect.width;
-      const height = rect.height;
-      
-      // 마우스 위치를 -1에서 1 사이의 값으로 정규화
-      const normalizedX = (x / width) * 2 - 1;
-      const normalizedY = (y / height) * 2 - 1;
-      
-      // 3D 회전 각도 계산 (포켓몬 카드 스타일)
-      const rotateX = normalizedY * -15; // Y축 회전 (상하)
-      const rotateY = normalizedX * 15;  // X축 회전 (좌우)
-      
-      // 그라디언트 위치 계산
-      const gradientX = (x / width) * 100;
-      const gradientY = (y / height) * 100;
-      
-      // 스파클 효과 위치
-      const sparkleX = (x / width) * 100;
-      const sparkleY = (y / height) * 100;
-
-      // CSS 변수로 동적 스타일 적용
-      card.style.setProperty('--mouse-x', `${gradientX}%`);
-      card.style.setProperty('--mouse-y', `${gradientY}%`);
-      card.style.setProperty('--sparkle-x', `${sparkleX}%`);
-      card.style.setProperty('--sparkle-y', `${sparkleY}%`);
-      
-      // 3D 변환 적용
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-      
-      // 활성 상태 추가
-      card.classList.add('active');
-    };
-
-    const handleMouseLeave = () => {
-      // 원래 상태로 부드럽게 복원
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      card.classList.remove('active');
-      
-      // CSS 변수 초기화
-      card.style.removeProperty('--mouse-x');
-      card.style.removeProperty('--mouse-y');
-      card.style.removeProperty('--sparkle-x');
-      card.style.removeProperty('--sparkle-y');
-    };
-
-    // 이벤트 리스너 등록
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('touchmove', handleMouseMove, { passive: false });
-    card.addEventListener('mouseleave', handleMouseLeave);
-    card.addEventListener('touchend', handleMouseLeave);
-
-    return () => {
-      // 클린업
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('touchmove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-      card.removeEventListener('touchend', handleMouseLeave);
-    };
-  }, []);
-
-  return (
-    <div ref={cardRef} className={`holo-card interactive ${className}`}>
-      {children}
-    </div>
-  );
-};
 
 export const TechStack = () => {
   // 스크롤 애니메이션 훅들
   const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>();
-  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
   const { ref: techCategoriesRef, isIntersecting: techCategoriesVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const { ref: achievementsRef, isIntersecting: achievementsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const { ref: expertiseRef, isIntersecting: expertiseVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
-  const { ref: marqueeRef, isIntersecting: marqueeVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
 
   const techCategories = [
     {
@@ -228,37 +132,20 @@ export const TechStack = () => {
           ref={headerRef}
           className={`text-center mb-16 scroll-animate ${headerVisible ? 'animate' : ''}`}
         >
+          {/* Modern Divider */}
+          <div className="flex items-center justify-center mb-8">
+            <div className="relative">
+              <div className="w-32 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-3 h-3 bg-primary/60 rounded-full shadow-lg"></div>
+              </div>
+            </div>
+          </div>
+          
           <Badge variant="outline" className="mb-4">Tech Stack & Expertise</Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">AI/ML 전문 기술</span>과 실무 경험
           </h2>
-        </div>
-
-        {/* Personal Introduction with Image */}
-        <div 
-          ref={introRef}
-          className={`mb-16 scroll-animate ${introVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '0.2s' }}
-        >
-          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
-            <div className="flex-shrink-0">
-              <HoloCard className="bocchi-card w-83 h-80">
-                <img
-                  src={bocchiImage}
-                  alt="AI/ML Research"
-                  className="w-full h-full object-cover"
-                />
-              </HoloCard>
-            </div>
-            <div className="flex-1 text-center">
-              <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
-                "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
-              </p>
-              <p className="text-sm text-yellow-500 mt-2 font-jua">
-                "성호야 그게 무슨 소리니?"
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Tech Categories */}
@@ -359,246 +246,6 @@ export const TechStack = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-
-        {/* Tech Logo Marquee */}
-        <div 
-          ref={marqueeRef}
-          className={`mb-8 scroll-animate ${marqueeVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '1s' }}
-        >
-          <h3 className="text-xl font-bold mb-8 text-center text-muted-foreground">사용 기술 스택</h3>
-          <div className="overflow-hidden">
-            <div className="flex animate-marquee py-4 whitespace-nowrap">
-              <div className="flex items-center space-x-8">
-                {/* 첫 번째 세트 */}
-                {/* Python */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Python</span>
-                </div>
-                
-                {/* PyTorch */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">PyTorch</span>
-                </div>
-
-                {/* TensorFlow */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">TensorFlow</span>
-                </div>
-
-                {/* Docker */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Docker</span>
-                </div>
-
-                {/* FastAPI */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">FastAPI</span>
-                </div>
-
-                {/* Supabase */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Supabase</span>
-                </div>
-
-                {/* Git */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Git</span>
-                </div>
-
-                {/* GitHub */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">GitHub</span>
-                </div>
-
-                {/* Redis */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Redis</span>
-                </div>
-
-                {/* TensorRT */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-1 shadow-lg">
-                    <img src={tensorrtImage} alt="TensorRT" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">TensorRT</span>
-                </div>
-
-                {/* ONNX */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src={onnxImage} alt="ONNX" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">ONNX</span>
-                </div>
-
-                {/* Hugging Face */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="Hugging Face" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Hugging Face</span>
-                </div>
-
-                {/* ComfyUI */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src={comfyuiImage} alt="ComfyUI" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">ComfyUI</span>
-                </div>
-
-                {/* CUDA */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <img src={cudaImage} alt="CUDA" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">CUDA</span>
-                </div>
-
-                {/* 두 번째 세트 (동일한 내용) */}
-                {/* Python */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Python</span>
-                </div>
-                
-                {/* PyTorch */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">PyTorch</span>
-                </div>
-
-                {/* TensorFlow */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">TensorFlow</span>
-                </div>
-
-                {/* Docker */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Docker</span>
-                </div>
-
-                {/* FastAPI */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">FastAPI</span>
-                </div>
-
-                {/* Supabase */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Supabase</span>
-                </div>
-
-                {/* Git */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Git</span>
-                </div>
-
-                {/* GitHub */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">GitHub</span>
-                </div>
-
-                {/* Redis */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Redis</span>
-                </div>
-
-                {/* TensorRT */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-1 shadow-lg">
-                    <img src={tensorrtImage} alt="TensorRT" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">TensorRT</span>
-                </div>
-
-                {/* ONNX */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src={onnxImage} alt="ONNX" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">ONNX</span>
-                </div>
-
-                {/* Hugging Face */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="Hugging Face" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">Hugging Face</span>
-                </div>
-
-                {/* ComfyUI */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg">
-                    <img src={comfyuiImage} alt="ComfyUI" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">ComfyUI</span>
-                </div>
-
-                {/* CUDA */}
-                <div className="flex flex-col items-center space-y-2 flex-shrink-0" style={{ width: '6rem' }}>
-                  <div className="w-12 h-12 bg-white rounded-lg p-2 shadow-lg flex items-center justify-center">
-                    <img src={cudaImage} alt="CUDA" className="w-full h-full" />
-                  </div>
-                  <span className="text-xs text-muted-foreground text-center">CUDA</span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -54,6 +54,16 @@ export const Contact = () => {
           className={`mb-16 scroll-animate ${headerVisible ? 'animate' : ''}`}
         >
           <div className="text-center">
+            {/* Modern Divider */}
+            <div className="flex items-center justify-center mb-8">
+              <div className="relative">
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-3 h-3 bg-primary/60 rounded-full shadow-lg"></div>
+                </div>
+              </div>
+            </div>
+            
             <Badge variant="outline" className="mb-4">Contact</Badge>
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">커피 한잔만</span> 사주세요

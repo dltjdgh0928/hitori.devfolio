@@ -14,7 +14,6 @@ import cudaImage from "@/assets/cuda_logo.png";
 // 홀로 카드 컴포넌트
 const HoloCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const styleRef = useRef<HTMLStyleElement | null>(null);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -35,66 +34,59 @@ const HoloCard = ({ children, className = "" }: { children: React.ReactNode; cla
       const width = rect.width;
       const height = rect.height;
       
-      // 마우스 위치를 퍼센트로 변환
-      const px = Math.abs(Math.floor(100 / width * x) - 100);
-      const py = Math.abs(Math.floor(100 / height * y) - 100);
-      const pa = (50 - px) + (50 - py);
-
+      // 마우스 위치를 -1에서 1 사이의 값으로 정규화
+      const normalizedX = (x / width) * 2 - 1;
+      const normalizedY = (y / height) * 2 - 1;
+      
+      // 3D 회전 각도 계산 (포켓몬 카드 스타일)
+      const rotateX = normalizedY * -15; // Y축 회전 (상하)
+      const rotateY = normalizedX * 15;  // X축 회전 (좌우)
+      
       // 그라디언트 위치 계산
-      const lp = (50 + (px - 50) / 1.5);
-      const tp = (50 + (py - 50) / 1.5);
-      const px_spark = (50 + (px - 50) / 7);
-      const py_spark = (50 + (py - 50) / 7);
-      const p_opc = 20 + (Math.abs(pa) * 1.5);
+      const gradientX = (x / width) * 100;
+      const gradientY = (y / height) * 100;
+      
+      // 스파클 효과 위치
+      const sparkleX = (x / width) * 100;
+      const sparkleY = (y / height) * 100;
 
-      // 3D 변환 계산
-      const ty = ((tp - 50) / 2) * -1;
-      const tx = ((lp - 50) / 1.5) * 0.5;
-
-      // CSS 스타일 적용
-      const grad_pos = `background-position: ${lp}% ${tp}%;`;
-      const sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`;
-      const opc = `opacity: ${p_opc / 100};`;
-      const tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`;
-
-      // 스타일 태그 생성 또는 업데이트
-      if (!styleRef.current) {
-        styleRef.current = document.createElement('style');
-        document.head.appendChild(styleRef.current);
-      }
-
-      const style = `
-        .holo-card.interactive:hover:before { ${grad_pos} }
-        .holo-card.interactive:hover:after { ${sprk_pos} ${opc} }
-      `;
-      styleRef.current.textContent = style;
-
-      // 카드에 3D 변환 적용
-      card.style.transform = tf;
+      // CSS 변수로 동적 스타일 적용
+      card.style.setProperty('--mouse-x', `${gradientX}%`);
+      card.style.setProperty('--mouse-y', `${gradientY}%`);
+      card.style.setProperty('--sparkle-x', `${sparkleX}%`);
+      card.style.setProperty('--sparkle-y', `${sparkleY}%`);
+      
+      // 3D 변환 적용
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+      
+      // 활성 상태 추가
       card.classList.add('active');
     };
 
     const handleMouseLeave = () => {
-      card.style.transform = '';
+      // 원래 상태로 부드럽게 복원
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       card.classList.remove('active');
-      if (styleRef.current) {
-        styleRef.current.textContent = '';
-      }
+      
+      // CSS 변수 초기화
+      card.style.removeProperty('--mouse-x');
+      card.style.removeProperty('--mouse-y');
+      card.style.removeProperty('--sparkle-x');
+      card.style.removeProperty('--sparkle-y');
     };
 
+    // 이벤트 리스너 등록
     card.addEventListener('mousemove', handleMouseMove);
     card.addEventListener('touchmove', handleMouseMove, { passive: false });
     card.addEventListener('mouseleave', handleMouseLeave);
     card.addEventListener('touchend', handleMouseLeave);
 
     return () => {
+      // 클린업
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('touchmove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
       card.removeEventListener('touchend', handleMouseLeave);
-      if (styleRef.current) {
-        document.head.removeChild(styleRef.current);
-      }
     };
   }, []);
 

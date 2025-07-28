@@ -125,7 +125,7 @@ export const TechStack = () => {
   };
 
   return (
-    <section id="about" className="py-24 px-6 bg-background">
+    <section id="tech-stack" className="py-24 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div 
@@ -143,7 +143,7 @@ export const TechStack = () => {
           </div>
           
           <Badge variant="outline" className="mb-4">Tech Stack & Expertise</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 id="tech-stack-header" className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">AI/ML 전문 기술</span>과 실무 경험
           </h2>
         </div>

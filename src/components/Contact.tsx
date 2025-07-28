@@ -47,7 +47,7 @@ export const Contact = () => {
   };
 
   return (
-    <section className="py-24 px-6 bg-background">
+    <section id="contact" className="py-24 px-6 bg-background">
       <div className="max-w-4xl mx-auto">
         <div 
           ref={headerRef}
@@ -65,7 +65,7 @@ export const Contact = () => {
             </div>
             
             <Badge variant="outline" className="mb-4">Contact</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 id="contact-header" className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">커피 한잔만</span> 사주세요
             </h2>
           </div>

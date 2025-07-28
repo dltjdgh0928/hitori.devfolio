@@ -487,7 +487,7 @@ export const Projects = () => {
           className={`text-center mb-16 scroll-animate ${headerVisible ? 'animate' : ''}`}
         >
           <Badge variant="outline" className="mb-4">Projects & Achievements</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+          <h2 id="projects-header" className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
             프로젝트
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

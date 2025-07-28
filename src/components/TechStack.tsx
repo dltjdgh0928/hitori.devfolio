@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Brain, Image, User, Zap, Server, Code, Award, Target, Cpu } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 // 이미지 import
 import bocchiImage from "@/assets/bocchi_1.png";
@@ -105,6 +106,14 @@ const HoloCard = ({ children, className = "" }: { children: React.ReactNode; cla
 };
 
 export const TechStack = () => {
+  // 스크롤 애니메이션 훅들
+  const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>();
+  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
+  const { ref: techCategoriesRef, isIntersecting: techCategoriesVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: achievementsRef, isIntersecting: achievementsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: expertiseRef, isIntersecting: expertiseVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: marqueeRef, isIntersecting: marqueeVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+
   const techCategories = [
     {
       icon: Brain,
@@ -223,43 +232,54 @@ export const TechStack = () => {
     <section id="about" className="py-24 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 scroll-animate ${headerVisible ? 'animate' : ''}`}
+        >
           <Badge variant="outline" className="mb-4">Tech Stack & Expertise</Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="gradient-text">AI/ML 전문 기술</span>과 실무 경험
           </h2>
         </div>
 
-                 {/* Personal Introduction with Image */}
-         <div className="mb-16">
-           <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
-             <div className="flex-shrink-0">
-               <HoloCard className="bocchi-card w-83 h-80">
-                 <img
-                   src={bocchiImage}
-                   alt="AI/ML Research"
-                   className="w-full h-full object-cover"
-                 />
-               </HoloCard>
-             </div>
-             <div className="flex-1 text-center">
-               <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
-                 "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
-               </p>
-               <p className="text-sm text-yellow-500 mt-2 font-jua">
-                 "성호야 그게 무슨 소리니?"
-               </p>
-             </div>
-           </div>
-         </div>
+        {/* Personal Introduction with Image */}
+        <div 
+          ref={introRef}
+          className={`mb-16 scroll-animate ${introVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.2s' }}
+        >
+          <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
+            <div className="flex-shrink-0">
+              <HoloCard className="bocchi-card w-83 h-80">
+                <img
+                  src={bocchiImage}
+                  alt="AI/ML Research"
+                  className="w-full h-full object-cover"
+                />
+              </HoloCard>
+            </div>
+            <div className="flex-1 text-center">
+              <p className="text-2xl md:text-3xl font-bold text-pink-500 leading-relaxed font-jua">
+                "소... 솔직히 AI라는 건 많이 해봤다고 생각해요..."
+              </p>
+              <p className="text-sm text-yellow-500 mt-2 font-jua">
+                "성호야 그게 무슨 소리니?"
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Tech Categories */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div 
+          ref={techCategoriesRef}
+          className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 scroll-animate ${techCategoriesVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.4s' }}
+        >
           {techCategories.map((category, index) => (
             <Card 
               key={index}
-              className={`card-gradient transition-smooth group cursor-pointer ${getColorClass(category.color)}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`card-gradient transition-smooth group cursor-pointer ${getColorClass(category.color)} scroll-animate-stagger ${techCategoriesVisible ? 'animate' : ''}`}
+              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
             >
               <CardHeader className="pb-4">
                 <div className="flex items-center space-x-3 mb-2">
@@ -290,11 +310,19 @@ export const TechStack = () => {
         </div>
 
         {/* Achievements */}
-        <div className="mb-16">
+        <div 
+          ref={achievementsRef}
+          className={`mb-16 scroll-animate ${achievementsVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.6s' }}
+        >
           <h3 className="text-2xl font-bold mb-8 text-center gradient-text">주요 성과</h3>
           <div className="grid md:grid-cols-3 gap-8">
             {achievements.map((achievement, index) => (
-              <Card key={index} className="text-center card-gradient border-0 hover:glow-primary transition-smooth">
+              <Card 
+                key={index} 
+                className={`text-center card-gradient border-0 hover:glow-primary transition-smooth scroll-animate-stagger ${achievementsVisible ? 'animate' : ''}`}
+                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+              >
                 <CardContent className="p-6">
                   <div className="mb-4 flex justify-center">
                     <div className="p-3 rounded-full bg-primary/10">
@@ -311,11 +339,19 @@ export const TechStack = () => {
         </div>
 
         {/* Detailed Expertise */}
-        <div className="mb-16">
+        <div 
+          ref={expertiseRef}
+          className={`mb-16 scroll-animate ${expertiseVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.8s' }}
+        >
           <h3 className="text-2xl font-bold mb-8 text-center gradient-text">전문 분야 상세</h3>
           <div className="grid lg:grid-cols-3 gap-8">
             {expertiseAreas.map((area, index) => (
-              <Card key={index} className="card-gradient border-0 hover:glow-secondary transition-smooth">
+              <Card 
+                key={index} 
+                className={`card-gradient border-0 hover:glow-secondary transition-smooth scroll-animate-stagger ${expertiseVisible ? 'animate' : ''}`}
+                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+              >
                 <CardHeader>
                   <CardTitle className="text-lg text-secondary">{area.title}</CardTitle>
                 </CardHeader>
@@ -335,7 +371,11 @@ export const TechStack = () => {
         </div>
 
         {/* Tech Logo Marquee */}
-        <div className="mb-8">
+        <div 
+          ref={marqueeRef}
+          className={`mb-8 scroll-animate ${marqueeVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '1s' }}
+        >
           <h3 className="text-xl font-bold mb-8 text-center text-muted-foreground">사용 기술 스택</h3>
           <div className="overflow-hidden">
             <div className="flex animate-marquee py-4 whitespace-nowrap">

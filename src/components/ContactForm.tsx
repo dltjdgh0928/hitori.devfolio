@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import React, { useEffect, useState } from "react";
 import emailjs from '@emailjs/browser';
 
@@ -62,25 +61,6 @@ export default function ContactForm({ onSuccess, isOpen }: { onSuccess?: () => v
       const publicKey = "0lBkq8_hTUq7loPkC";
 
       await emailjs.send(serviceId, templateId, templateParams, publicKey);
-
-      // Supabase에도 백업 저장 시도
-      try {
-        const { error } = await (supabase as any)
-          .from('contacts')
-          .insert([
-            {
-              name: data.name,
-              email: data.email,
-              message: data.message
-            }
-          ]);
-
-        if (error) {
-          console.error('Supabase error:', error);
-        }
-      } catch (supabaseError) {
-        console.error('Supabase backup error:', supabaseError);
-      }
 
       toast({
         title: "메시지가 성공적으로 전송되었습니다!",

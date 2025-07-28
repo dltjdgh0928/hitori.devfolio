@@ -10,10 +10,16 @@ import knowledgeManagement2 from "@/assets/knowledge_management_2.jpeg";
 import loraEvaluatorImage from "@/assets/lora_evaluater.png";
 import openkoLlmImage from "@/assets/openko-llm.jpg";
 import openkoLlmSponsorImage from "@/assets/openko-llm-sponsor.jpg";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 export const Projects = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState({ src: "", title: "", description: "" });
+
+  // 스크롤 애니메이션 훅들
+  const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>();
+  const { ref: projectsGridRef, isIntersecting: projectsGridVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: additionalProjectsRef, isIntersecting: additionalProjectsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
 
   const openImageModal = (imageSrc: string, title: string, description: string) => {
     setSelectedImage({ src: imageSrc, title, description });
@@ -103,7 +109,10 @@ export const Projects = () => {
   return (
     <section id="projects" className="py-20 bg-background">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div 
+          ref={headerRef}
+          className={`text-center mb-16 scroll-animate ${headerVisible ? 'animate' : ''}`}
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
             프로젝트
           </h2>
@@ -112,9 +121,17 @@ export const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {projects.map((project) => (
-            <Card key={project.id} className="group hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur h-full flex flex-col">
+        <div 
+          ref={projectsGridRef}
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 scroll-animate ${projectsGridVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.2s' }}
+        >
+          {projects.map((project, index) => (
+            <Card 
+              key={project.id} 
+              className={`group hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur h-full flex flex-col scroll-animate-stagger ${projectsGridVisible ? 'animate' : ''}`}
+              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -215,13 +232,21 @@ export const Projects = () => {
         </div>
 
         {/* Additional Projects */}
-        <div className="text-center">
+        <div 
+          ref={additionalProjectsRef}
+          className={`text-center scroll-animate ${additionalProjectsVisible ? 'animate' : ''}`}
+          style={{ transitionDelay: '0.4s' }}
+        >
           <h3 className="text-2xl font-bold mb-8 text-muted-foreground">
             기타 진행 프로젝트
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {upcomingProjects.map((project, index) => (
-              <Card key={index} className="bg-card hover:shadow-lg transition-all duration-300">
+              <Card 
+                key={index} 
+                className={`bg-card hover:shadow-lg transition-all duration-300 scroll-animate-stagger ${additionalProjectsVisible ? 'animate' : ''}`}
+                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+              >
                 <CardContent className="p-6 text-center">
                   <h4 className="font-semibold mb-2">{project.name}</h4>
                   <p className="text-sm text-muted-foreground">{project.tech}</p>

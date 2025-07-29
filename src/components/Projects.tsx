@@ -110,11 +110,11 @@ export const Projects = () => {
   const [selectedImage, setSelectedImage] = useState({ src: "", title: "", description: "" });
 
   // 스크롤 애니메이션 훅들
-  const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>();
-  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
-  const { ref: marqueeRef, isIntersecting: marqueeVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
-  const { ref: projectsGridRef, isIntersecting: projectsGridVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
-  const { ref: additionalProjectsRef, isIntersecting: additionalProjectsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.03 });
+  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.03 });
+  const { ref: marqueeRef, isIntersecting: marqueeVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.03 });
+  const { ref: projectsGridRef, isIntersecting: projectsGridVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.03 });
+  const { ref: additionalProjectsRef, isIntersecting: additionalProjectsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.03 });
 
   const openImageModal = (imageSrc: string, title: string, description: string) => {
     setSelectedImage({ src: imageSrc, title, description });
@@ -208,7 +208,7 @@ export const Projects = () => {
         <div 
           ref={introRef}
           className={`mb-16 scroll-animate ${introVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '0.2s' }}
+          style={{ transitionDelay: '0s' }}
         >
           <div className="flex flex-col lg:flex-row items-center gap-8 max-w-5xl mx-auto">
             <div className="flex-shrink-0">
@@ -235,7 +235,7 @@ export const Projects = () => {
         <div 
           ref={marqueeRef}
           className={`mb-24 scroll-animate ${marqueeVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '0.4s' }}
+          style={{ transitionDelay: '0s' }}
         >
           <h3 className="text-xl font-bold mb-8 text-center text-muted-foreground">Tech Stack</h3>
           <div className="overflow-hidden">
@@ -498,13 +498,13 @@ export const Projects = () => {
         <div 
           ref={projectsGridRef}
           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 scroll-animate ${projectsGridVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '0.6s' }}
+          style={{ transitionDelay: '0s' }}
         >
           {projects.map((project, index) => (
             <Card 
               key={project.id} 
               className={`group hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/50 bg-card/50 backdrop-blur h-full flex flex-col scroll-animate-stagger ${projectsGridVisible ? 'animate' : ''}`}
-              style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+              style={{ transitionDelay: '0s' }}
             >
               <CardHeader>
                 <div className="flex items-center justify-between mb-4">
@@ -609,7 +609,7 @@ export const Projects = () => {
         <div 
           ref={additionalProjectsRef}
           className={`text-center scroll-animate ${additionalProjectsVisible ? 'animate' : ''}`}
-          style={{ transitionDelay: '0.4s' }}
+          style={{ transitionDelay: '0s' }}
         >
           <h3 className="text-2xl font-bold mb-8 text-muted-foreground">
             기타 진행 프로젝트
@@ -619,7 +619,7 @@ export const Projects = () => {
               <Card 
                 key={index} 
                 className={`bg-card hover:shadow-lg transition-all duration-300 scroll-animate-stagger ${additionalProjectsVisible ? 'animate' : ''}`}
-                style={{ transitionDelay: `${(index + 1) * 0.1}s` }}
+                style={{ transitionDelay: '0s' }}
               >
                 <CardContent className="p-6 text-center">
                   <h4 className="font-semibold mb-2">{project.name}</h4>

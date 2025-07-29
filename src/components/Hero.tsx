@@ -13,12 +13,12 @@ export const Hero = () => {
   const [open, setOpen] = useState(false);
   
   // 스크롤 애니메이션 훅들
-  const { ref: titleRef, isIntersecting: titleVisible } = useIntersectionObserver<HTMLHeadingElement>();
-  const { ref: subtitleRef, isIntersecting: subtitleVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
-  const { ref: descriptionRef, isIntersecting: descriptionVisible } = useIntersectionObserver<HTMLParagraphElement>({ threshold: 0.3 });
-  const { ref: buttonsRef, isIntersecting: buttonsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
-  const { ref: socialRef, isIntersecting: socialVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
-  const { ref: scrollRef, isIntersecting: scrollVisible } = useIntersectionObserver<HTMLButtonElement>({ threshold: 0.3 });
+  const { ref: titleRef, isIntersecting: titleVisible } = useIntersectionObserver<HTMLHeadingElement>({ threshold: 0.1 });
+  const { ref: subtitleRef, isIntersecting: subtitleVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: descriptionRef, isIntersecting: descriptionVisible } = useIntersectionObserver<HTMLParagraphElement>({ threshold: 0.1 });
+  const { ref: buttonsRef, isIntersecting: buttonsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: socialRef, isIntersecting: socialVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { ref: scrollRef, isIntersecting: scrollVisible } = useIntersectionObserver<HTMLButtonElement>({ threshold: 0.1 });
   
   useEffect(() => {
     const title = titles[currentIndex];

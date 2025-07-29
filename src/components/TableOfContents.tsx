@@ -40,7 +40,7 @@ export const TableOfContents = () => {
           }
         });
       },
-      { rootMargin: "-20% 0px -35% 0px" }
+      { rootMargin: "0% 0px -70% 0px" }
     );
 
     sectionIds.forEach((id) => {

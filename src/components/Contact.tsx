@@ -15,7 +15,7 @@ export const Contact = () => {
   
   // 스크롤 애니메이션 훅들
   const { ref: headerRef, isIntersecting: headerVisible } = useIntersectionObserver<HTMLDivElement>();
-  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.3 });
+  const { ref: introRef, isIntersecting: introVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const { ref: contactMethodsRef, isIntersecting: contactMethodsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const { ref: socialRef, isIntersecting: socialVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   
